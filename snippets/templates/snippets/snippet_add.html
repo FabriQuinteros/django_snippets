@@ -1,40 +1,46 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="row justify-content-md-center">
-  <div class="col-md-6">
-    <br>
-    <form>
-      <div class="form-group">
-        <label for="exampleInputPassword1">Nombre</label>
-        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Nombre del Snippet">
-      </div>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Descripción</label>
-        <input type="" class="form-control" id="1" aria-describedby="emailHelp" placeholder="Descripcion">
-      </div>
-      <div class="form-group">
-        <label for="exampleInputEmail1">Lenguaje</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-          <option>Python</option>
-          <option>PHP</option>
-          <option>Java</option>
-        </select>
-      </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <h1 class="text-center py-3">Crear snippet</h1>
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" class="form-control" name="name"
+                           placeholder="Nombre del Snippet" value="{{ snippet.name }}" required>
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripción</label>
+                    <input type="" class="form-control" name="description" aria-describedby="emailHelp" placeholder="Descripcion" value="{{ snippet.description }}">
+                </div>
+                <div class="form-group">
+                    <label for="language">Lenguaje</label>
+                    <select class="form-control" name="language">
+                        {% for i in languages %}
+                            <option {% if i.name == snippet.language.name %} selected {% endif %}>{{ i.name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-      <div class="form-group">
-        <label for="exampleInputEmail1">Tipo</label>
-        <select class="form-control" id="exampleFormControlSelect1">
-          <option selected="selected">Publico</option>
-          <option>Privado</option>
-        </select>
-      </div>
-      
-      <div class="form-group">
-        <label for="exampleInputEmail1">Snippet</label>
-        <textarea class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
-      </div>
-      <button type="submit" class="btn btn-primary">Crear</button>
-    </form>
-  </div>
-</div>
+                <div class="form-group">
+                    <label for="public">Tipo</label>
+                    <select class="form-control" name="public">
+                        <option>Privado</option>
+                        <option {% if snippet.public == 1 %} selected {% endif %}>Público</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="code">Snippet</label>
+                    <textarea class="form-control" name="code" rows="5" required>{{ snippet.snippet }}</textarea>
+                </div>
+                {% if snippet %}
+                    <button type="submit" class="btn btn-primary">Edit</button>
+                {% else %}
+                    <button type="submit" class="btn btn-primary">Crear</button>
+                {% endif %}
+            </form>
+        </div>
+    </div>
 {% endblock %}

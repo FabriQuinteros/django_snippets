@@ -11,3 +11,8 @@ Esta aplicación está hosteada en Heroku, se puede acceder mediante el siguient
 Username: user
 
 Password: user2021
+
+## Admin para realizar pruebas
+Username: admin
+
+Password: admin2021

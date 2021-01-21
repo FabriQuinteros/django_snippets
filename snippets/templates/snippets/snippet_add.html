@@ -1,45 +1,12 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="row justify-content-md-center">
+    <div class="row justify-content-md-center my-3">
         <div class="col-md-6">
-            <h1 class="text-center py-3">Crear snippet</h1>
-            <form method="post">
+            <h1 class="text-center pb-3">{{ action }} snippet</h1>
+            <form method="POST" class="post-form">
                 {% csrf_token %}
-                <div class="form-group">
-                    <label for="name">Nombre</label>
-                    <input type="text" class="form-control" name="name"
-                           placeholder="Nombre del Snippet" value="{{ snippet.name }}" required>
-                </div>
-                <div class="form-group">
-                    <label for="description">Descripción</label>
-                    <input type="" class="form-control" name="description" aria-describedby="emailHelp" placeholder="Descripcion" value="{{ snippet.description }}">
-                </div>
-                <div class="form-group">
-                    <label for="language">Lenguaje</label>
-                    <select class="form-control" name="language">
-                        {% for i in languages %}
-                            <option {% if i.name == snippet.language.name %} selected {% endif %}>{{ i.name }}</option>
-                        {% endfor %}
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="public">Tipo</label>
-                    <select class="form-control" name="public">
-                        <option>Privado</option>
-                        <option {% if snippet.public == 1 %} selected {% endif %}>Público</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="code">Snippet</label>
-                    <textarea class="form-control" name="code" rows="5" required>{{ snippet.snippet }}</textarea>
-                </div>
-                {% if snippet %}
-                    <button type="submit" class="btn btn-primary">Edit</button>
-                {% else %}
-                    <button type="submit" class="btn btn-primary">Crear</button>
-                {% endif %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">{{ action }}</button>
             </form>
         </div>
     </div>

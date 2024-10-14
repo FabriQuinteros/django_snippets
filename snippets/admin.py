@@ -5,4 +5,7 @@ from .models import Language
 
 @admin.register(Language)
 class LanguageAdmin(admin.ModelAdmin):
-    list_display = ('name', 'slug',)
+    list_display = (
+        "name",
+        "slug",
+    )
